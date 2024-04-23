@@ -1,8 +1,9 @@
 import logging
 import requests
-from constants import HEADERS, URL_PRODUCT, SENDER_EMAIL, SENDER_EMAIL_PASSWORD, RECEIVER_EMAIL
+from constants import  URL_PRODUCT
 from bs4 import BeautifulSoup
 import smtplib
+from get_title_product import get_product_title
 from search_price_product import get_product_price
 from send_email_module import send_email
 
@@ -24,7 +25,11 @@ def main():
         #enviamos correo con la informacion del producto si el precio es menor o igual al establecido inicialmente
         if int(price)<= BUY_PRICE:
 
-            send_email(price, url_product=URL_PRODUCT)
+            #funcion que nos devuelve el precio del producto
+            product_title=get_product_title()
+            
+            
+            send_email(price, url_product=URL_PRODUCT, title=product_title)
         
         
         

@@ -6,7 +6,7 @@ import smtplib
 
 
 #funcion que envia email cuando el precio del producto este en el valor especificado
-def send_email(price, url_product):
+def send_email(price, url_product, title):
     """this function send email with text and subject specified"""
     
     try:
@@ -22,16 +22,20 @@ def send_email(price, url_product):
             smtp_object.login(SENDER_EMAIL, SENDER_EMAIL_PASSWORD)
             
             
-            SUBJECT= "amazon product"
+            # Asunto del correo electrónico
+            subject= "Amazon Price Alert!"
             
-            TEXT= f"price of the product now {price}\n\n the url is: {url_product}"
             
+            # Cuerpo del correo electrónico
+            text = f"price of the product: {title} \n\nPrice now: {price}\n\nThe URL is: {url_product}"
+            
+                        
             
             #mensaje que se enviara
-            message = 'Subject: {}\n\n{}'.format(SUBJECT, TEXT)
+            message = f'subject: {subject}\n\n{text}'.encode('utf-8')  
             
             
-            #datos de la persona que recibe el email
+            #datos de la persona que recibe el email# Asunto del correo electrónico
             smtp_object.sendmail(SENDER_EMAIL, RECEIVER_EMAIL, message)
         
 
